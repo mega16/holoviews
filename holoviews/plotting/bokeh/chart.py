@@ -491,12 +491,11 @@ class SpikesPlot(PathPlot, ColorbarPlot):
                 bs, ts = [], []
                 # Iterate over current NdOverlay and compute extents
                 # from position and length plot options
-                for el in self.current_frame.values():
-                    opts = self.lookup_options(el, 'plot').options
-                    pos = opts.get('position', self.position)
-                    length = opts.get('spike_length', self.spike_length)
-                    bs.append(pos)
-                    ts.append(pos+length)
+                opts = self.lookup_options(element, 'plot').options
+                pos = opts.get('position', self.position)
+                length = opts.get('spike_length', self.spike_length)
+                bs.append(pos)
+                ts.append(pos+length)
                 b = np.nanmin(bs)
                 t = np.nanmax(ts)
             else:
