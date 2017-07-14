@@ -71,6 +71,7 @@ class DictInterface(Interface):
         elif isinstance(data, dict) and not all(d in data for d in dimensions):
             dict_data = zip(*((util.wrap_tuple(k)+util.wrap_tuple(v))
                               for k, v in data.items()))
+            if type(data) is dict: dict_data = sorted(dict_data)
             data = {k: np.array(v) for k, v in zip(dimensions, dict_data)}
 
         if not isinstance(data, cls.types):

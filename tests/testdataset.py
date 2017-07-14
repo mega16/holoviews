@@ -739,6 +739,12 @@ class ArrayDatasetTest(HomogeneousColumnTypes, ComparisonTestCase):
         self.data_instance_type = np.ndarray
         self.init_column_data()
 
+    def test_dataset_simple_dict_sorted(self):
+        dataset = Dataset({2: 2, 1: 1, 3: 3}, kdims=['x'], vdims=['y'])
+        self.assertEqual(dataset, Dataset([(i, i) for i in range(1, 4)],
+                                          kdims=['x'], vdims=['y']))
+
+
 
 class DFDatasetTest(HeterogeneousColumnTypes, ComparisonTestCase):
     """
@@ -763,6 +769,11 @@ class DFDatasetTest(HeterogeneousColumnTypes, ComparisonTestCase):
         self.assertEqual(grouped.keys(), keys)
         group = Dataset({'z': [5, 11, 17]}, vdims=['z'])
         self.assertEqual(grouped.last, group)
+
+    def test_dataset_simple_dict_sorted(self):
+        dataset = Dataset({2: 2, 1: 1, 3: 3}, kdims=['x'], vdims=['y'])
+        self.assertEqual(dataset, Dataset([(i, i) for i in range(1, 4)],
+                                          kdims=['x'], vdims=['y']))
 
 
 class DaskDatasetTest(DFDatasetTest):
@@ -822,6 +833,10 @@ class DictDatasetTest(HeterogeneousColumnTypes, ComparisonTestCase):
         self.data_instance_type = (dict, cyODict, OrderedDict)
         self.init_column_data()
 
+    def test_dataset_simple_dict_sorted(self):
+        dataset = Dataset({2: 2, 1: 1, 3: 3}, kdims=['x'], vdims=['y'])
+        self.assertEqual(dataset, Dataset([(i, i) for i in range(1, 4)],
+                                          kdims=['x'], vdims=['y']))
 
 
 class NdDatasetTest(HeterogeneousColumnTypes, ComparisonTestCase):
