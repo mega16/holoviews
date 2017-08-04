@@ -475,6 +475,9 @@ class histogram(Operation):
     groupby = param.ClassSelector(default=None, class_=(basestring, Dimension), doc="""
       Defines a dimension to group the Histogram returning an NdOverlay of Histograms.""")
 
+    height_normed = param.Boolean(default=False, doc="""
+        Whether the histogram frequencies are normalized such that max height is unity.""")
+
     individually = param.Boolean(default=True, doc="""
       Specifies whether the histogram will be rescaled for each Element in a UniformNdMapping.""")
 
@@ -554,8 +557,7 @@ class histogram(Operation):
 
                 if self.p.weight_dimension and self.p.mean_weighted:
                     hist_mean, _ = np.histogram(data[np.isfinite(data)], density=False,
-                                            range=hist_range, bins=self.p.num_bins)
-
+                                                range=hist_range, bins=self.p.num_bins)
                     hist /= hist_mean
         except:
             hist = np.zeros(self.p.num_bins)
