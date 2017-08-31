@@ -418,7 +418,7 @@ class SideHistogramPlot(ColorbarPlot, HistogramPlot):
                         right=element.edges[1:])
 
         color_dims = self.adjoined.traverse(lambda x: x.handles.get('color_dim'))
-        dim = color_dims[0] if color_dims else None
+        dim = [cd for cd in color_dims if cd][0] if color_dims else None
         cmapper = self._get_colormapper(dim, element, {}, {})
         if cmapper and dim in element.dimensions():
             data[dim.name] = [] if empty else element.dimension_values(dim)
